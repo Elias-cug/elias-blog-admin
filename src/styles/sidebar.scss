@@ -1,0 +1,17 @@
+#app {
+  .sidebar-container {
+      width: $sideBarWidth !important;
+      height: 100%;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      .el-menu {
+        height: 100%;
+        width: 100% !important;
+      }
+      .el-menu-item, .el-submenu_title {
+        height: 40px;
+        line-height: 39px;
+      }
+  }
+}
