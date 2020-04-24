@@ -36,7 +36,9 @@ export default {
       height: 50px;
       margin-left: #{$sideBarWidth};
       width: calc(100% - #{$sideBarWidth});
+      background-color: #fff;
       border-bottom: 1px solid #f9f7f8;
+      z-index: 1600;
     }
   }
 }

@@ -21,7 +21,7 @@ const routes = [
       path: 'index',
       name: 'CreateArticle',
       hidden: false,
-      component: () => import('@/views/createArticle/index.vue'),
+      component: () => import('@/views/createArticle/tinymce.vue'),
       meta: { title: '富文本编辑', icon: '' }
     }, {
       path: 'markdown',

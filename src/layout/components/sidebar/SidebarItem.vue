@@ -8,7 +8,10 @@
       </el-menu-item>
     </template>
 
-    <el-submenu v-else :index="resolvePath(item.path)">
+    <el-submenu
+      v-else
+      :index="resolvePath(item.path)"
+    >
       <template slot="title">
         <span>{{ item.meta.title }}</span>
       </template>
@@ -59,5 +62,7 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-
+.menu {
+  background-color: rgb(48, 65, 86);
+}
 </style>

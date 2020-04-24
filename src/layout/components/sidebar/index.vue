@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-menu :router="true">
+    <el-menu
+      :router="true"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
       <sidebar-item
         v-for="route in routes"
         :key="route.path"
