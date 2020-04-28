@@ -9,6 +9,21 @@
     <div class="container">
       <mavon-editor ref="md" v-model="content" style="min-height: 600px" @imgAdd="$imgAdd" @change="change" />
     </div>
+
+    <el-dialog :title="title" :visible.sync="dialogVisible">
+      <el-form :model="temp" label-width="100px" label-position="right">
+        <el-form-item label="分类名称：">
+          <el-select v-model="temp.category" placeholder="请选择分类">
+            <el-option label="区域一" value="shanghai" />
+            <el-option label="区域二" value="beijing" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible=false">确定</el-button>
+        <el-button @click="dialogVisible=false">取消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -27,7 +42,11 @@ export default {
       content: '',
       html: '',
       configs: {},
-      title: ''
+      title: '',
+      dialogVisible: false,
+      temp: {
+        category: {}
+      }
     }
   },
   mounted() { },
@@ -50,9 +69,10 @@ export default {
     },
     // 提交
     submit() {
+      this.dialogVisible = true
       console.log(this.content)
       console.log(this.html)
-      this.$message.success('提交成功，已打印至控制台！')
+      // this.$message.success('提交成功，已打印至控制台！')
     }
   }
 }
