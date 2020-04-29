@@ -2,6 +2,7 @@
   <div class="category">
     <div class="filter-header">
       <el-button size="small" @click="handleInsert">新增</el-button>
+      <el-button size="small" @click="handleRefresh">刷新</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -10,9 +11,10 @@
       highlight-current-row
       style="width: 100%"
     >
-      <el-table-column prop="cate_id" label="分类编号" />
-      <el-table-column prop="cate_name" label="分类名称" />
-      <el-table-column prop="article_num" label="文章数量" />
+      <el-table-column prop="name" label="分类名称" />
+      <el-table-column prop="desc" label="分类描述" />
+      <el-table-column prop="includeNum" label="文章数量" />
+      <el-table-column prop="status" label="状态" />
       <el-table-column
         label="操作"
         width="260"
@@ -20,7 +22,7 @@
       >
         <template slot-scope="scope">
           <el-button size="small" type="primary" @click="handleUpdate(scope.row)">修改</el-button>
-          <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+          <el-button size="small" type="danger" @click="handleDelete(scope.row)">注销</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -30,11 +32,11 @@
       :visible.sync="dialogVisible"
     >
       <el-form :model="temp" label-width="100px" label-position="right">
-        <el-form-item label="分类编号：">
-          <el-input v-model="temp.cate_id" :disabled="isDisabled" autocomplete="off" />
-        </el-form-item>
         <el-form-item label="分类名称：">
-          <el-input v-model="temp.cate_name" autocomplete="off" />
+          <el-input v-model="temp.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="分类描述：">
+          <el-input v-model="temp.desc" autocomplete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -46,53 +48,26 @@
 </template>
 
 <script>
-import { findCategory } from '@/api/blog/category.js'
+import { findCategory, addCategory, cancelCategory, updateCategory } from '@/api/blog/category.js'
 export default {
   data() {
     return {
-      tableData: [
-        {
-          cate_id: 'A01',
-          cate_name: 'JS',
-          article_num: '5'
-        },
-        {
-          cate_id: 'A02',
-          cate_name: 'html5',
-          article_num: '5'
-        },
-        {
-          cate_id: 'A03',
-          cate_name: 'vue',
-          article_num: '5'
-        },
-        {
-          cate_id: 'A04',
-          cate_name: 'node',
-          article_num: '5'
-        },
-        {
-          cate_id: 'A05',
-          cate_name: 'JS',
-          article_num: '5'
-        }
-      ],
+      tableData: [],
       dialogVisible: false,
       dialogStatus: '',
       title: '',
-      isDisabled: false,
-      temp: { cate_id: '', cate_name: '' }
+      temp: { name: '', desc: '' }
     }
   },
   mounted() {
-    // this.findCategory({})
+    this.findCategory({})
   },
   methods: {
     findCategory(data) {
       return new Promise((resolve, reject) => {
         findCategory(data)
           .then(response => {
-            this.tableData = response
+            this.tableData = response.data
             resolve()
           })
           .catch(err => {
@@ -108,15 +83,21 @@ export default {
       this.temp = row
     },
     updateData() {
-      const updateJson = Object.assign({}, this.temp)
-      for (let i = 0; i < this.tableData.length; i++) {
-        if (this.tableData[i].cate_id === updateJson.cate_id) {
-          this.tableData.splice(i, 1, updateJson)
-          break
-        }
+      const reqJson = {
+        update: { _id: this.temp._id },
+        options: Object.assign({}, this.temp)
       }
-
-      this.dialogVisible = false
+      return new Promise((resolve, reject) => {
+        updateCategory(reqJson)
+          .then(response => {
+            this.dialogVisible = false
+            resolve()
+          })
+          .catch(err => {
+            this.dialogVisible = false
+            reject(err)
+          })
+      })
     },
     handleInsert() {
       this.title = '新增'
@@ -126,13 +107,33 @@ export default {
     },
     insertData() {
       const insertJson = Object.assign({}, this.temp)
-      insertJson.article_num = 0
-      this.tableData.push(insertJson)
-      this.dialogVisible = false
+      return new Promise((resolve, reject) => {
+        addCategory(insertJson)
+          .then(response => {
+            console.log(response)
+            resolve()
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
     },
     handleDelete(row) {
-      const index = this.tableData.indexOf(row)
-      this.tableData.splice(index, 1)
+      const updateJson = {
+        _id: row._id
+      }
+      return new Promise((resolve, reject) => {
+        cancelCategory(updateJson)
+          .then(response => {
+            resolve()
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    handleRefresh() {
+      this.findCategory({})
     }
   }
 }
