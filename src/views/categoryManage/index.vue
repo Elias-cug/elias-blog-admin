@@ -90,6 +90,12 @@ export default {
       return new Promise((resolve, reject) => {
         updateCategory(reqJson)
           .then(response => {
+            this.$notify({
+              title: 'Success',
+              message: 'Update Successfully',
+              type: 'success',
+              duration: 2000
+            })
             this.dialogVisible = false
             resolve()
           })
@@ -110,7 +116,13 @@ export default {
       return new Promise((resolve, reject) => {
         addCategory(insertJson)
           .then(response => {
-            console.log(response)
+            this.$notify({
+              title: 'Success',
+              message: 'Add Successfully',
+              type: 'success',
+              duration: 2000
+            })
+            this.dialogVisible = false
             resolve()
           })
           .catch(err => {
