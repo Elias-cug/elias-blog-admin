@@ -36,10 +36,10 @@ export default {
   },
   methods: {
     login() {
-      const username = this.loginForm.username
-      if (username === 'admin') {
-        this.$router.push('/createArticle')
-      }
+      this.$store.dispatch('user/login', this.loginForm)
+        .then(() => {
+          console.log('登录成功')
+        })
     }
   }
 }
