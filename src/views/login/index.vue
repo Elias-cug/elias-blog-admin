@@ -38,6 +38,7 @@ export default {
     login() {
       this.$store.dispatch('user/login', this.loginForm)
         .then(() => {
+          this.$router.push({ path: '/createArticle' })
           console.log('登录成功')
         })
     }

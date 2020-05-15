@@ -1,4 +1,5 @@
 import { login } from '@/api/user.js'
+import { setToken } from '@/utils/auth.js'
 const state = {
   name: '',
   introduction: '',
@@ -27,6 +28,7 @@ const actions = {
           const { data } = response
           console.log(data)
           commit('SET_NAME', data.username)
+          setToken(data.token)
           resolve()
         })
         .catch(error => {
