@@ -13,7 +13,7 @@
     >
       <el-table-column prop="name" label="分类名称" />
       <el-table-column prop="desc" label="分类描述" />
-      <el-table-column prop="includeNum" label="文章数量" />
+      <el-table-column prop="articleNum" label="文章数量" />
       <el-table-column prop="status" label="状态" />
       <el-table-column
         label="操作"

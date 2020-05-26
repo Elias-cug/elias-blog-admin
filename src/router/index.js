@@ -5,6 +5,27 @@ import Layout from '@/layout/index.vue'
 
 Vue.use(VueRouter)
 
+const constantRoutes = [
+  {
+    path: '/login',
+    component: () => import('@/views/login/index.vue'),
+    hidden: true
+  },
+  {
+    path: '/visit',
+    component: Layout,
+    redirect: '/visit/index',
+    hidden: false,
+    children: [{
+      path: 'index',
+      name: 'Visit',
+      hidden: false,
+      component: () => import('@/views/visit/index.vue'),
+      meta: { title: '访问流量', icon: '' }
+    }]
+  }
+]
+
 const routes = [
   {
     path: '/',
