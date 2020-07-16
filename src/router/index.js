@@ -5,26 +5,26 @@ import Layout from '@/layout/index.vue'
 
 Vue.use(VueRouter)
 
-const constantRoutes = [
-  {
-    path: '/login',
-    component: () => import('@/views/login/index.vue'),
-    hidden: true
-  },
-  {
-    path: '/visit',
-    component: Layout,
-    redirect: '/visit/index',
-    hidden: false,
-    children: [{
-      path: 'index',
-      name: 'Visit',
-      hidden: false,
-      component: () => import('@/views/visit/index.vue'),
-      meta: { title: '访问流量', icon: '' }
-    }]
-  }
-]
+// const constantRoutes = [
+//   {
+//     path: '/login',
+//     component: () => import('@/views/login/index.vue'),
+//     hidden: true
+//   },
+//   {
+//     path: '/visit',
+//     component: Layout,
+//     redirect: '/visit/index',
+//     hidden: false,
+//     children: [{
+//       path: 'index',
+//       name: 'Visit',
+//       hidden: false,
+//       component: () => import('@/views/visit/index.vue'),
+//       meta: { title: '访问流量', icon: '' }
+//     }]
+//   }
+// ]
 
 const routes = [
   {
@@ -77,7 +77,22 @@ const routes = [
       component: () => import('@/views/moudleManage/index.vue'),
       meta: { title: '模块管理', icon: '' }
     }]
-  }, {
+  },
+  {
+    path: '/timelineManage',
+    component: Layout,
+    redirect: '/timelineManage/index',
+    hidden: false,
+    meta: { title: '时间线管理', icon: '' },
+    children: [{
+      path: '',
+      name: 'timelineManage',
+      hidden: false,
+      component: () => import('@/views/timelineManage/index.vue'),
+      meta: { title: '时间线管理', icon: '' }
+    }]
+  },
+  {
     path: '/visit',
     component: Layout,
     redirect: '/visit/index',
@@ -88,6 +103,19 @@ const routes = [
       hidden: false,
       component: () => import('@/views/visit/index.vue'),
       meta: { title: '访问流量', icon: '' }
+    }]
+  },
+  {
+    path: '/upload',
+    component: Layout,
+    redirect: '/upload/index',
+    hidden: false,
+    children: [{
+      path: 'index',
+      name: 'Upload',
+      hidden: false,
+      component: () => import('@/views/upload/index.vue'),
+      meta: { title: '文件上传', icon: '' }
     }]
   }
 ]

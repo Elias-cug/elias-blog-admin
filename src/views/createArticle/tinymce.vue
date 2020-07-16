@@ -2,9 +2,9 @@
   <div class="editor-content">
     <div class="title-wrapper">
       <el-input v-model="articleTitle" placeholder="请输入文章标题" class="title-input" />
-      <el-button>保存草稿</el-button>
+      <el-button @click="saveAsDraf">保存草稿</el-button>
       <el-button @click="fillOutInfo">发布</el-button>
-      <el-button>清空</el-button>
+      <el-button @click="clearForm">清空</el-button>
     </div>
     <div>
       <tinymce v-model="content" :height="800" />
@@ -67,6 +67,7 @@ export default {
         desc: '',
         is_top: false
       },
+      isDraf: false,
       dialogVisible: false,
       categorys: [],
       sources: [{
@@ -87,6 +88,11 @@ export default {
   methods: {
     fillOutInfo() {
       this.dialogVisible = true
+      this.isDraf = false
+    },
+    saveAsDraf() {
+      this.dialogVisible = true
+      this.isDraf = true
     },
     getCategory() {
       const data = { status: 1 }
@@ -105,10 +111,11 @@ export default {
       const data = {
         title: this.articleTitle,
         desc: this.temp.desc,
-        original: this.temp.source,
+        source: this.temp.source,
         is_top: this.temp.is_top,
         cid: this.temp.category,
         content: this.content,
+        status: this.isDraf ? 'Draf' : 'republic',
         update_time: new Date()
       }
       return new Promise((resolve, reject) => {
