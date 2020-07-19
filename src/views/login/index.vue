@@ -38,7 +38,8 @@ export default {
     login() {
       this.$store.dispatch('user/login', this.loginForm)
         .then(() => {
-          this.$router.push({ path: '/createArticle' })
+          this.$router.push({ path: '/' })
+          this.$store.dispatch('permission/generateRoutes', ['admin'])
           console.log('登录成功')
         })
     }

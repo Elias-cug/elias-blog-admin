@@ -7,7 +7,7 @@
       active-text-color="#ffd04b"
     >
       <sidebar-item
-        v-for="route in routes"
+        v-for="route in permission_routes"
         :key="route.path"
         :item="route"
         :base-path="route.path"
@@ -18,6 +18,8 @@
 
 <script>
 import SidebarItem from './SidebarItem.vue'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Sidebar',
   components: { SidebarItem },
@@ -25,10 +27,15 @@ export default {
     return {}
   },
   computed: {
-    routes() {
-      return this.$router.options.routes
-    }
+    ...mapGetters([
+      'permission_routes'
+    ])
   },
+  // computed: {
+  //   routes() {
+  //     return this.$router.options.routes
+  //   }
+  // },
   methods: {}
 }
 </script>

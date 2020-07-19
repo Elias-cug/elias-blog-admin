@@ -3,7 +3,8 @@ import { setToken } from '@/utils/auth.js'
 const state = {
   name: '',
   introduction: '',
-  roles: []
+  roles: [],
+  token: ''
 }
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_TOKEN: (state, token) => {
+    state.token = token
   }
 }
 
@@ -26,8 +30,9 @@ const actions = {
       login({ username: username.trim(), password: password })
         .then(response => {
           const { data } = response
-          console.log(data)
           commit('SET_NAME', data.username)
+          commit('SET_ROLES', data.roles)
+          commit('SET_INTRODUCTION', data.introduction)
           setToken(data.token)
           resolve()
         })

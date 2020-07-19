@@ -139,7 +139,8 @@ export default {
             reject(err)
           })
       })
-    }
+    },
+    clearForm() {}
   }
 }
 </script>

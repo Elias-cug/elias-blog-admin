@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import getters from './getterrs.js'
 Vue.use(Vuex)
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
@@ -16,7 +16,8 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   return modules
 }, {})
 const store = new Vuex.Store({
-  modules
+  modules,
+  getters
 })
 console.log(store)
 export default store

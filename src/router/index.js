@@ -5,41 +5,25 @@ import Layout from '@/layout/index.vue'
 
 Vue.use(VueRouter)
 
-// const constantRoutes = [
-//   {
-//     path: '/login',
-//     component: () => import('@/views/login/index.vue'),
-//     hidden: true
-//   },
-//   {
-//     path: '/visit',
-//     component: Layout,
-//     redirect: '/visit/index',
-//     hidden: false,
-//     children: [{
-//       path: 'index',
-//       name: 'Visit',
-//       hidden: false,
-//       component: () => import('@/views/visit/index.vue'),
-//       meta: { title: '访问流量', icon: '' }
-//     }]
-//   }
-// ]
+export const routerMap = {
+  table: () => import('@/views/table/index.vue'),
+  layout: Layout
+}
 
-const routes = [
+export const constantRoutes = [
   {
-    path: '/',
+    path: '/login',
     component: () => import('@/views/login/index.vue'),
     hidden: true
   },
   {
-    path: '/createArticle',
+    path: '/',
     component: Layout,
     hidden: false,
     redirect: '/createArticle/index',
     meta: { title: '文章创作', icon: '' },
     children: [{
-      path: 'index',
+      path: '',
       name: 'CreateArticle',
       hidden: false,
       component: () => import('@/views/createArticle/tinymce.vue'),
@@ -123,7 +107,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes: constantRoutes
 })
 
 export default router
