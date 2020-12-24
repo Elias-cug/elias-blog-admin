@@ -1,6 +1,10 @@
 <template>
   <div class="article">
-    <el-form :inline="true" :model="filter" class="demo-form-inline filter-header">
+    <el-form
+      :inline="true"
+      :model="filter"
+      class="demo-form-inline filter-header"
+    >
       <span>筛选：</span>
       <el-form-item>
         <el-select v-model="filter.selectedCategory" placeholder="文章分类">
@@ -30,11 +34,7 @@
       </el-form-item>
     </el-form>
 
-    <div
-      v-for="article in articles"
-      :key="article._id"
-      class="article-list"
-    >
+    <div v-for="article in articles" :key="article._id" class="article-list">
       <h3>{{ article.title }}</h3>
       <div class="article-info">
         <span>{{ article.original }}</span>
@@ -46,7 +46,6 @@
       </div>
       <div class="clear-float" />
     </div>
-
   </div>
 </template>
 
@@ -57,11 +56,11 @@ import { parseTime } from '@/utils/index.js'
 export default {
   name: 'Article',
   filters: {
-    parseTime(time, cFormat) {
+    parseTime (time, cFormat) {
       return parseTime(time, cFormat)
     }
   },
-  data() {
+  data () {
     return {
       filter: {
         selectedSource: '',
@@ -70,24 +69,28 @@ export default {
       },
       articles: [],
       categorys: [],
-      sources: [{
-        id: 'original',
-        text: '原创'
-      }, {
-        id: 'repost',
-        text: '转载'
-      }, {
-        id: 'translate',
-        text: '翻译'
-      }]
+      sources: [
+        {
+          id: 'original',
+          text: '原创'
+        },
+        {
+          id: 'repost',
+          text: '转载'
+        },
+        {
+          id: 'translate',
+          text: '翻译'
+        }
+      ]
     }
   },
-  mounted() {
+  mounted () {
     this.getCategory()
     this.getArticle()
   },
   methods: {
-    getCategory() {
+    getCategory () {
       const data = { status: 1 }
       console.log(data)
       return new Promise((resolve, reject) => {
@@ -101,7 +104,7 @@ export default {
           })
       })
     },
-    getArticle() {
+    getArticle () {
       return new Promise((resolve, reject) => {
         findArticle({})
           .then(response => {
@@ -113,10 +116,8 @@ export default {
           })
       })
     },
-    editArticle() {
-
-    },
-    removeArticle(id) {
+    editArticle () {},
+    removeArticle (id) {
       const data = {
         _id: id
       }

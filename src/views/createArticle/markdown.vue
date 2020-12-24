@@ -1,13 +1,23 @@
 <template>
   <div class="markdown">
     <div class="title-wrapper">
-      <el-input v-model="title" placeholder="请输入文章标题" class="title-input" />
+      <el-input
+        v-model="title"
+        placeholder="请输入文章标题"
+        class="title-input"
+      />
       <el-button>保存草稿</el-button>
       <el-button @click="submit">发布</el-button>
       <el-button>清空</el-button>
     </div>
     <div class="container">
-      <mavon-editor ref="md" v-model="content" style="min-height: 600px" @imgAdd="$imgAdd" @change="change" />
+      <mavon-editor
+        ref="md"
+        v-model="content"
+        style="min-height: 600px"
+        @imgAdd="$imgAdd"
+        @change="change"
+      />
     </div>
 
     <el-dialog :title="title" :visible.sync="dialogVisible">
@@ -20,8 +30,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible=false">确定</el-button>
-        <el-button @click="dialogVisible=false">取消</el-button>
+        <el-button @click="dialogVisible = false">确定</el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
@@ -37,7 +47,7 @@ export default {
     mavonEditor
   },
   props: [],
-  data() {
+  data () {
     return {
       content: '',
       html: '',
@@ -49,26 +59,29 @@ export default {
       }
     }
   },
-  mounted() { },
+  mounted () {},
   methods: {
     // 将图片上传到服务器，返回地址替换到md中
-    $imgAdd(pos, $file) {
+    $imgAdd (pos, $file) {
       const formdata = new FormData()
 
-      this.$upload.post('/上传接口地址', formdata).then(res => {
-        console.log(res.data)
-        this.$refs.md.$img2Url(pos, res.data)
-      }).catch(err => {
-        console.log(err)
-      })
+      this.$upload
+        .post('/上传接口地址', formdata)
+        .then(res => {
+          console.log(res.data)
+          this.$refs.md.$img2Url(pos, res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     // 所有操作都会被解析重新渲染
-    change(value, render) {
+    change (value, render) {
       // render 为 markdown 解析后的结果[html]
       this.html = render
     },
     // 提交
-    submit() {
+    submit () {
       this.dialogVisible = true
       console.log(this.content)
       console.log(this.html)

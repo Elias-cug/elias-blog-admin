@@ -1,7 +1,7 @@
 import request from '@/utils/request.js'
 
 // 查询分类属性
-export function findCategory(data) {
+export function findCategory (data) {
   return request({
     url: '/admin/category/findCategoryAndNum',
     method: 'get',
@@ -10,7 +10,7 @@ export function findCategory(data) {
 }
 
 // 新增分类
-export function addCategory(data) {
+export function addCategory (data) {
   return request({
     url: '/admin/category/add',
     method: 'post',
@@ -19,7 +19,7 @@ export function addCategory(data) {
 }
 
 // 注销分类
-export function cancelCategory(data) {
+export function cancelCategory (data) {
   return request({
     url: '/admin/category/cancel',
     method: 'post',
@@ -28,7 +28,7 @@ export function cancelCategory(data) {
 }
 
 // 修改分类
-export function updateCategory(data) {
+export function updateCategory (data) {
   return request({
     url: '/admin/category/update',
     method: 'post',

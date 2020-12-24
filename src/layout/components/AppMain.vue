@@ -7,14 +7,14 @@
 <script>
 export default {
   name: 'AppMain',
-  data() {
+  data () {
     return {}
   },
   computed: {},
   methods: {}
 }
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 @import '~@/styles/variables.scss';
 .app-main {
   position: relative;
@@ -23,7 +23,7 @@ export default {
   overflow: hidden;
 }
 
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 </style>

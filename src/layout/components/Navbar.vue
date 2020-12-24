@@ -7,14 +7,14 @@
 <script>
 export default {
   name: 'Navbar',
-  data() {
+  data () {
     return {}
   },
   computed: {},
   methods: {}
 }
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .navbar {
   line-height: 50px;
 }

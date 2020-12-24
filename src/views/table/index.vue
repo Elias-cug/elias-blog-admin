@@ -5,11 +5,8 @@
 </template>
 
 <script>
-
 export default {
   name: 'Table'
 }
 </script>
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

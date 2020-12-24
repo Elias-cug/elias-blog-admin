@@ -1,12 +1,11 @@
-import { routerMap, constantRoutes } from '@/router/index.js'
+import router, { routerMap, constantRoutes } from '@/router/index.js'
 import { getRoutes } from '@/api/route.js'
-import router from '@/router/index.js'
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
+function hasPermission (roles, route) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role))
   } else {
@@ -19,7 +18,7 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes (routes, roles) {
   const res = []
 
   routes.forEach(route => {
@@ -34,8 +33,8 @@ export function filterAsyncRoutes(routes, roles) {
   return res
 }
 
-function generateAsyncRouter(routerMap, serverRouterMap) {
-  serverRouterMap.forEach(function(item, index) {
+function generateAsyncRouter (routerMap, serverRouterMap) {
+  serverRouterMap.forEach(function (item, index) {
     item.component = routerMap[item.component]
     if (item.children && item.children.length > 0) {
       generateAsyncRouter(routerMap, item.children)
@@ -58,7 +57,7 @@ const mutations = {
 }
 
 const actions = {
-  generateRoutes({ commit }, roles) {
+  generateRoutes ({ commit }, roles) {
     return new Promise(resolve => {
       getRoutes().then(res => {
         const asyncRouterMap = generateAsyncRouter(routerMap, res.data)

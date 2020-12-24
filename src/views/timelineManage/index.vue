@@ -1,7 +1,11 @@
 <template>
   <div class="timeline">
     <div class="options">
-      <el-radio-group v-model="tabPosition" class="line-options" @change="radioChange">
+      <el-radio-group
+        v-model="tabPosition"
+        class="line-options"
+        @change="radioChange"
+      >
         <el-radio-button label="developTime">开发</el-radio-button>
         <el-radio-button label="readingTime">阅读</el-radio-button>
       </el-radio-group>
@@ -48,10 +52,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog
-      :title="title"
-      :visible.sync="dialogVisible"
-    >
+    <el-dialog :title="title" :visible.sync="dialogVisible">
       <el-form :model="temp" label-width="100px" label-position="right">
         <el-form-item label="标题：">
           <el-input v-model="temp.title" autocomplete="off" />
@@ -67,7 +68,9 @@
             list-type="picture-card"
           >
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            <div slot="tip" class="el-upload__tip">
+              只能上传jpg/png文件，且不超过500kb
+            </div>
           </el-upload>
         </el-form-item>
         <el-form-item label="内容：">
@@ -75,20 +78,29 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button v-show="isBtn" @click="dialogStatus === 'modify' ? modifyData() : insertImg()">确定</el-button>
-        <el-button @click="dialogVisible=false">取消</el-button>
+        <el-button
+          v-show="isBtn"
+          @click="dialogStatus === 'modify' ? modifyData() : insertImg()"
+          >确定</el-button
+        >
+        <el-button @click="dialogVisible = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { addTimeline, findTimeline, modifyTimeline, cancelTimeline } from '@/api/timeline/timeline.js'
+import {
+  addTimeline,
+  findTimeline,
+  modifyTimeline,
+  cancelTimeline
+} from '@/api/timeline/timeline.js'
 import { parseTime } from '@/utils/index.js'
 import { uploadFileRequest } from '@/api/index.js'
 export default {
   name: 'TimelineManage',
-  data() {
+  data () {
     return {
       tabPosition: 'developTime',
       tableData: [],
@@ -100,14 +112,14 @@ export default {
       isBtn: false
     }
   },
-  mounted() {
+  mounted () {
     this.findTimeline()
   },
   methods: {
-    parseTime(row, column, cellValue, index) {
+    parseTime (row, column, cellValue, index) {
       return parseTime(cellValue, '{y}-{m}-{d} {h}:{m}:{s}')
     },
-    findTimeline() {
+    findTimeline () {
       const data = { category: this.tabPosition }
       return new Promise((resolve, reject) => {
         findTimeline(data)
@@ -120,13 +132,13 @@ export default {
           })
       })
     },
-    handleInsert() {
+    handleInsert () {
       this.title = '新增'
       this.isBtn = true
       this.dialogVisible = true
       this.temp = { title: '', content: '' }
     },
-    insertImg() {
+    insertImg () {
       const formData = new FormData()
       const fileArray = this.$refs.upload.uploadFiles
       for (let i = 0; i < fileArray.length; i++) {
@@ -143,7 +155,7 @@ export default {
           })
       })
     },
-    insertData() {
+    insertData () {
       const data = Object.assign({}, this.temp)
       data.category = this.tabPosition
       data.add_time = new Date()
@@ -158,14 +170,14 @@ export default {
           })
       })
     },
-    handleModify(index, row) {
+    handleModify (index, row) {
       this.dialogVisible = true
       this.dialogStatus = 'modify'
       this.isBtn = true
       this.title = '修改'
       this.temp = Object.assign({}, row)
     },
-    modifyData() {
+    modifyData () {
       const tmp = Object.assign(this.temp)
       const update = {
         _id: tmp._id
@@ -190,7 +202,7 @@ export default {
           })
       })
     },
-    cancelData(index, row) {
+    cancelData (index, row) {
       const data = {
         _id: row._id
       }
@@ -198,24 +210,24 @@ export default {
         cancelTimeline(data)
       })
     },
-    handleCheck(index, row) {
+    handleCheck (index, row) {
       this.dialogVisible = true
       this.dialogStatus = 'check'
       this.isBtn = false
       this.temp = Object.assign({}, row)
     },
-    radioChange(value) {
+    radioChange (value) {
       this.findTimeline()
     }
   }
 }
 </script>
-<style lang='scss' scoped>
-.timeline{
+<style lang="scss" scoped>
+.timeline {
   padding: 5px;
-  .options{
+  .options {
     padding: 10px 0;
-    .line-button{
+    .line-button {
       float: right;
     }
   }

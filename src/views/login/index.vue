@@ -14,7 +14,11 @@
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
-          <el-input v-model="loginForm.password" type="password" placeholder="密码" />
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            placeholder="密码"
+          />
         </el-form-item>
 
         <el-button type="primary" @click="login">登录</el-button>
@@ -26,7 +30,7 @@
 <script>
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       loginForm: {
         username: '',
@@ -35,21 +39,20 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$store.dispatch('user/login', this.loginForm)
-        .then(() => {
-          this.$router.push({ path: '/' })
-          this.$store.dispatch('permission/generateRoutes', ['admin'])
-          console.log('登录成功')
-        })
+    login () {
+      this.$store.dispatch('user/login', this.loginForm).then(() => {
+        this.$router.push({ path: '/' })
+        this.$store.dispatch('permission/generateRoutes', ['admin'])
+        console.log('登录成功')
+      })
     }
   }
 }
 </script>
 
 <style lang="scss">
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 .login-wrapper {
   .el-input {
@@ -84,7 +87,7 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$dark_gray:#889aa4;
+$dark_gray: #889aa4;
 .login-wrapper {
   display: flex;
   justify-content: center;

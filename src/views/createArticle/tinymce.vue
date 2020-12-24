@@ -1,7 +1,11 @@
 <template>
   <div class="editor-content">
     <div class="title-wrapper">
-      <el-input v-model="articleTitle" placeholder="请输入文章标题" class="title-input" />
+      <el-input
+        v-model="articleTitle"
+        placeholder="请输入文章标题"
+        class="title-input"
+      />
       <el-button @click="saveAsDraf">保存草稿</el-button>
       <el-button @click="fillOutInfo">发布</el-button>
       <el-button @click="clearForm">清空</el-button>
@@ -10,10 +14,7 @@
       <tinymce v-model="content" :height="800" />
     </div>
 
-    <el-dialog
-      title="新增"
-      :visible.sync="dialogVisible"
-    >
+    <el-dialog title="新增" :visible.sync="dialogVisible">
       <el-form :model="temp" label-width="100px" label-position="right">
         <el-form-item label="分类名称：">
           <el-select v-model="temp.category" placeholder="请选择分类">
@@ -36,7 +37,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="是否置顶：">
-          <el-switch v-model="temp.is_top" active-color="#13ce66" inactive-color="#ff4949" />
+          <el-switch
+            v-model="temp.is_top"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+          />
         </el-form-item>
         <el-form-item label="文章描述：">
           <el-input v-model="temp.desc" type="textarea" />
@@ -44,7 +49,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="submitArticle">确定</el-button>
-        <el-button @click="dialogVisible=false">取消</el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
@@ -57,7 +62,7 @@ import { addArticle } from '@/api/blog/article.js'
 export default {
   name: 'TinymceDemo',
   components: { Tinymce },
-  data() {
+  data () {
     return {
       content: ``,
       articleTitle: '',
@@ -70,31 +75,35 @@ export default {
       isDraf: false,
       dialogVisible: false,
       categorys: [],
-      sources: [{
-        id: 'original',
-        text: '原创'
-      }, {
-        id: 'repost',
-        text: '转载'
-      }, {
-        id: 'translate',
-        text: '翻译'
-      }]
+      sources: [
+        {
+          id: 'original',
+          text: '原创'
+        },
+        {
+          id: 'repost',
+          text: '转载'
+        },
+        {
+          id: 'translate',
+          text: '翻译'
+        }
+      ]
     }
   },
-  created() {
+  created () {
     this.getCategory()
   },
   methods: {
-    fillOutInfo() {
+    fillOutInfo () {
       this.dialogVisible = true
       this.isDraf = false
     },
-    saveAsDraf() {
+    saveAsDraf () {
       this.dialogVisible = true
       this.isDraf = true
     },
-    getCategory() {
+    getCategory () {
       const data = { status: 1 }
       return new Promise((resolve, reject) => {
         findCategory(data)
@@ -107,7 +116,7 @@ export default {
           })
       })
     },
-    submitArticle() {
+    submitArticle () {
       const data = {
         title: this.articleTitle,
         desc: this.temp.desc,
@@ -140,13 +149,13 @@ export default {
           })
       })
     },
-    clearForm() {}
+    clearForm () {}
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.editor-content{
+.editor-content {
   margin: 10px;
   .title-wrapper {
     margin-bottom: 10px;

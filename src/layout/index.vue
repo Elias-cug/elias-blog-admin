@@ -13,15 +13,15 @@ import { Navbar, Sidebar, AppMain } from './components/index.js'
 
 export default {
   components: { AppMain, Navbar, Sidebar },
-  data() {
+  data () {
     return {}
   },
   computed: {},
   methods: {}
 }
 </script>
-<style lang='scss' scoped>
-@import '~@/styles/variables.scss';
+<style lang="scss" scoped>
+@import '~@/assets/css/variables.scss';
 .app-wrapper {
   position: relative;
   .content-wrapper {

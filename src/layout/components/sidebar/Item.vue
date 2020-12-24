@@ -1,24 +1,15 @@
 <template>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
-
 export default {
   name: 'Item',
-  data() {
-    return {
-      
-    }
+  data () {
+    return {}
   },
   computed: {},
-  methods: {
-    
-  }
+  methods: {}
 }
 </script>
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -23,13 +23,11 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Sidebar',
   components: { SidebarItem },
-  data() {
+  data () {
     return {}
   },
   computed: {
-    ...mapGetters([
-      'permission_routes'
-    ])
+    ...mapGetters(['permission_routes'])
   },
   // computed: {
   //   routes() {
@@ -39,6 +37,4 @@ export default {
   methods: {}
 }
 </script>
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

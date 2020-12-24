@@ -1,7 +1,7 @@
 import request from '@/utils/request.js'
 const base = '127.0.0.1:3000'
 // post 方式提交
-export function postRequest(url, params) {
+export function postRequest (url, params) {
   return request({
     method: 'post',
     url: `${base}/cxqr${url}`,
@@ -12,7 +12,7 @@ export function postRequest(url, params) {
   })
 }
 
-export function uploadFileRequest(url, params) {
+export function uploadFileRequest (url, params) {
   return request({
     method: 'post',
     url: url,
@@ -23,7 +23,7 @@ export function uploadFileRequest(url, params) {
   })
 }
 
-export function getRequest(url) {
+export function getRequest (url) {
   return request({
     method: 'get',
     url: `${base}/cxqr${url}`

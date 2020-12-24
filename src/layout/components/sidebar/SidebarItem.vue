@@ -1,17 +1,12 @@
 <template>
   <div v-if="!item.hidden">
     <template v-if="hasOnlyOneChild(item.children, item)">
-      <el-menu-item
-        :index="resolvePath(showRoute.path)"
-      >
+      <el-menu-item :index="resolvePath(showRoute.path)">
         {{ showRoute.meta.title }}
       </el-menu-item>
     </template>
 
-    <el-submenu
-      v-else
-      :index="resolvePath(item.path)"
-    >
+    <el-submenu v-else :index="resolvePath(item.path)">
       <template slot="title">
         <span>{{ item.meta.title }}</span>
       </template>
@@ -39,13 +34,13 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     this.showRoute = null
     return {}
   },
   computed: {},
   methods: {
-    hasOnlyOneChild(children = [], parent) {
+    hasOnlyOneChild (children = [], parent) {
       if (children.length === 1) {
         this.showRoute = children[0]
         return true
@@ -55,13 +50,13 @@ export default {
       }
       return false
     },
-    resolvePath(routePath) {
+    resolvePath (routePath) {
       return path.resolve(this.basePath, routePath)
     }
   }
 }
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .menu {
   background-color: rgb(48, 65, 86);
 }

@@ -15,22 +15,22 @@
       <el-table-column prop="desc" label="分类描述" />
       <el-table-column prop="articleNum" label="文章数量" />
       <el-table-column prop="status" label="状态" />
-      <el-table-column
-        label="操作"
-        width="260"
-        align="center"
-      >
+      <el-table-column label="操作" width="260" align="center">
         <template slot-scope="scope">
-          <el-button size="small" type="primary" @click="handleUpdate(scope.row)">修改</el-button>
-          <el-button size="small" type="danger" @click="handleDelete(scope.row)">注销</el-button>
+          <el-button
+            size="small"
+            type="primary"
+            @click="handleUpdate(scope.row)"
+            >修改</el-button
+          >
+          <el-button size="small" type="danger" @click="handleDelete(scope.row)"
+            >注销</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog
-      :title="title"
-      :visible.sync="dialogVisible"
-    >
+    <el-dialog :title="title" :visible.sync="dialogVisible">
       <el-form :model="temp" label-width="100px" label-position="right">
         <el-form-item label="分类名称：">
           <el-input v-model="temp.name" autocomplete="off" />
@@ -40,17 +40,25 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogStatus === 'update' ? updateData() : insertData()">确定</el-button>
-        <el-button @click="dialogVisible=false">取消</el-button>
+        <el-button
+          @click="dialogStatus === 'update' ? updateData() : insertData()"
+          >确定</el-button
+        >
+        <el-button @click="dialogVisible = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { findCategory, addCategory, cancelCategory, updateCategory } from '@/api/blog/category.js'
+import {
+  findCategory,
+  addCategory,
+  cancelCategory,
+  updateCategory
+} from '@/api/blog/category.js'
 export default {
-  data() {
+  data () {
     return {
       tableData: [],
       dialogVisible: false,
@@ -59,11 +67,11 @@ export default {
       temp: { name: '', desc: '' }
     }
   },
-  mounted() {
+  mounted () {
     this.findCategory({})
   },
   methods: {
-    findCategory(data) {
+    findCategory (data) {
       return new Promise((resolve, reject) => {
         findCategory(data)
           .then(response => {
@@ -75,14 +83,14 @@ export default {
           })
       })
     },
-    handleUpdate(row) {
+    handleUpdate (row) {
       this.title = '修改'
       this.dialogStatus = 'update'
       this.dialogVisible = true
       this.isDisabled = true
       this.temp = row
     },
-    updateData() {
+    updateData () {
       const reqJson = {
         update: { _id: this.temp._id },
         options: Object.assign({}, this.temp)
@@ -105,13 +113,13 @@ export default {
           })
       })
     },
-    handleInsert() {
+    handleInsert () {
       this.title = '新增'
       this.dialogStatus = 'insert'
       this.dialogVisible = true
       this.isDisabled = false
     },
-    insertData() {
+    insertData () {
       const insertJson = Object.assign({}, this.temp)
       return new Promise((resolve, reject) => {
         addCategory(insertJson)
@@ -130,7 +138,7 @@ export default {
           })
       })
     },
-    handleDelete(row) {
+    handleDelete (row) {
       const updateJson = {
         _id: row._id
       }
@@ -144,7 +152,7 @@ export default {
           })
       })
     },
-    handleRefresh() {
+    handleRefresh () {
       this.findCategory({})
     }
   }
